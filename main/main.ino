@@ -31,7 +31,7 @@ Adafruit_TSL2591 tsl2 = Adafruit_TSL2591(2);
  
 // Definition des variables générales
 unsigned long timer = 0;
-bool go = true;
+bool go;
 
 // Variables pour le déploiment
 int angle_voulu;
@@ -136,6 +136,7 @@ int in4 = 7;
   // On initie communication I2C bus et on lit les valeurs d'angle
   // ca se peut que ca chie pcq on relache pas le bus
   int ProgrammeExecuter = DisplayMenu();
+  go = true;
 
   switch (ProgrammeExecuter){
     case 1 :
@@ -151,8 +152,9 @@ int in4 = 7;
         Serial.println("Erreur! ");
       break;
     case 2 : 
+      deploiementStatut = true;
       if (deploiementStatut)
-        orientation();
+        orientation(&tsl,&tsl2,&mpu,&in1,&in2,&enA);
       else
         Serial.println("Erreur : Vous devez deploiyez les panneaux solaires avant! ");
       break;
